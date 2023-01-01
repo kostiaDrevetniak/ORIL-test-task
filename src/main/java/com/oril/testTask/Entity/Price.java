@@ -9,4 +9,9 @@ public class Price {
     private String id;
     private double price;
     private Currency currency;
+
+    public Price(double price, Currency currency) {
+        this.price = price;
+        this.currency = currency;
+    }
 }
