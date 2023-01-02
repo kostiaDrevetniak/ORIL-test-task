@@ -1,7 +1,7 @@
-package com.oril.testTask.Config;
+package com.oril.testTask.config;
 
-import com.oril.testTask.Entity.Currency;
-import com.oril.testTask.Repository.CurrencyRepository;
+import com.oril.testTask.entity.Currency;
+import com.oril.testTask.repository.CurrencyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

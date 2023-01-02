@@ -1,9 +1,9 @@
-package com.oril.testTask.Service;
+package com.oril.testTask.service;
 
-import com.oril.testTask.Entity.Price;
-import com.oril.testTask.Repository.CurrencyRepository;
-import com.oril.testTask.Repository.PriceRepository;
-import com.oril.testTask.Service.Util.RequestSender;
+import com.oril.testTask.entity.Price;
+import com.oril.testTask.repository.CurrencyRepository;
+import com.oril.testTask.repository.PriceRepository;
+import com.oril.testTask.service.util.RequestSender;
 import org.json.JSONObject;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

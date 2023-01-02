@@ -1,4 +1,4 @@
-package com.oril.testTask.Service.Util;
+package com.oril.testTask.service.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

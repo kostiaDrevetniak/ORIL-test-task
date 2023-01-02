@@ -1,6 +1,6 @@
-package com.oril.testTask.Repository;
+package com.oril.testTask.repository;
 
-import com.oril.testTask.Entity.Currency;
+import com.oril.testTask.entity.Currency;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
