@@ -1,8 +1,10 @@
 package com.oril.testTask.controler;
 
 import com.oril.testTask.controler.dto.CurrencyDTO;
+import com.oril.testTask.controler.dto.PriceDTO;
 import com.oril.testTask.controler.dto.mapper.CustomCurrencyMapper;
 import com.oril.testTask.entity.Currency;
+import com.oril.testTask.entity.Price;
 import com.oril.testTask.exception.EntityNotFoundException;
 import com.oril.testTask.service.PriceService;
 import org.modelmapper.ModelMapper;
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cryptocurrencies")
@@ -51,5 +57,14 @@ public class PriceController {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PriceDTO>> getPrices(
+            CurrencyDTO currencyDTO,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<Price> prices = priceService.getPrices(modelMapper.map(currencyDTO, Currency.class), page, size);
+        return ResponseEntity.ok().body(prices.stream().map(price -> modelMapper.map(price, PriceDTO.class)).collect(Collectors.toList()));
     }
 }

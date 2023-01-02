@@ -17,14 +17,14 @@ public class DBConfig {
             MongoTemplate mongoTemplate
     ){
         return args -> {
-            mongoTemplate.getDb().drop();
-            Currency currency1 = new Currency();
-            currency1.setName("BTC/USD");
-            Currency currency2 = new Currency();
-            currency2.setName("ETH/USD");
-            Currency currency3 = new Currency();
-            currency3.setName("XRP/USD");
-            currencyRepository.insert(List.of(currency1, currency2, currency3));
+//            mongoTemplate.getDb().drop();
+//            Currency currency1 = new Currency();
+//            currency1.setName("BTC/USD");
+//            Currency currency2 = new Currency();
+//            currency2.setName("ETH/USD");
+//            Currency currency3 = new Currency();
+//            currency3.setName("XRP/USD");
+//            currencyRepository.insert(List.of(currency1, currency2, currency3));
         };
     }
 }
