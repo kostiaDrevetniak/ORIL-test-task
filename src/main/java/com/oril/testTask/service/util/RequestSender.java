@@ -8,7 +8,6 @@ import java.net.URL;
 
 public class RequestSender {
     public static String sendRequest(String URL) throws IOException {
-
         java.net.URL url = new URL(URL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         BufferedReader in = new BufferedReader(
