@@ -16,14 +16,14 @@ import java.io.IOException;
 
 @EnableScheduling
 @Service
-public class ScheduledPriceGetingService {
+public class ScheduledPriceGettingService {
 
     private static final String URL = "https://cex.io/api/last_price/";
 
     private final CurrencyRepository currencyRepository;
     private final PriceRepository priceRepository;
 
-    public ScheduledPriceGetingService(CurrencyRepository currencyRepository, PriceRepository priceRepository) {
+    public ScheduledPriceGettingService(CurrencyRepository currencyRepository, PriceRepository priceRepository) {
         this.currencyRepository = currencyRepository;
         this.priceRepository = priceRepository;
     }
