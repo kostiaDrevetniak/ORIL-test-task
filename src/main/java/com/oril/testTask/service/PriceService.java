@@ -34,7 +34,7 @@ public class PriceService {
                 .orElseThrow(() -> new EntityNotFoundException("Not found price for this currency")).getPrice();
     }
 
-    public List<Price> getPrices(Currency currency, int page, int size) {
+    public List<Price> getPrices(Currency currency, int page, int size) throws EntityNotFoundException {
         AggregationResults<Price> aggregate = mongoTemplate.aggregate(Aggregation.newAggregation(
                 Price.class,
                 Aggregation.match(Criteria.where("Currency").is(currency)),
@@ -42,6 +42,9 @@ public class PriceService {
                 Aggregation.limit(size),
                 Aggregation.sort(Sort.Direction.ASC, "price")
         ), Price.class);
-        return aggregate.getMappedResults();
+        List<Price> results = aggregate.getMappedResults();
+        if (results.isEmpty())
+            throw new IndexOutOfBoundsException("Page number out of document bounds");
+        return results;
     }
 }

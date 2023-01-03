@@ -39,44 +39,53 @@ public class PriceController {
     }
 
     @GetMapping("/minprice")
-    public ResponseEntity<Double> getMinPrice(CurrencyDTO currencyDTO) {
+    public ResponseEntity<?> getMinPrice(CurrencyDTO currencyDTO) {
         try {
             Currency currency = modelMapper.map(currencyDTO, Currency.class);
             if (currency.getId() == null)
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.unprocessableEntity().body("Not found currency with this name");
             double minPrice = priceService.getMinPrice(currency);
             return ResponseEntity.ok().body(minPrice);
         } catch (EntityNotFoundException e) {
             e.printStackTrace();
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
         }
     }
 
     @GetMapping("/maxprice")
-    public ResponseEntity<Double> getMaxPrice(CurrencyDTO currencyDTO) {
+    public ResponseEntity<?> getMaxPrice(CurrencyDTO currencyDTO) {
         try {
             Currency currency = modelMapper.map(currencyDTO, Currency.class);
             if (currency.getId() == null)
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.unprocessableEntity().body("Not found currency with this name");
             double minPrice = priceService.getMaxPrice(currency);
             return ResponseEntity.ok().body(minPrice);
         } catch (EntityNotFoundException e) {
             e.printStackTrace();
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<PriceDTO>> getPrices(
+    public ResponseEntity<?> getPrices(
             CurrencyDTO currencyDTO,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        List<Price> prices = priceService.getPrices(modelMapper.map(currencyDTO, Currency.class), page, size);
+        Currency currency = modelMapper.map(currencyDTO, Currency.class);
+        if (currency.getId() == null)
+            return ResponseEntity.unprocessableEntity().body("Not found currency with this name");
+        List<Price> prices;
+        try {
+            prices = priceService.getPrices(currency, page, size);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(e.getLocalizedMessage());
+        }
         return ResponseEntity.ok().body(prices.stream().map(price -> modelMapper.map(price, PriceDTO.class)).collect(Collectors.toList()));
     }
 
     @GetMapping(value = "/csv", produces = "text/csv")
-    public ResponseEntity<Resource> generateCSV() {
+    public ResponseEntity<?> generateCSV() {
         try {
             ByteArrayInputStream stream = csvService.generateCSVFile();
             InputStreamResource fileInputStream = new InputStreamResource(stream);
@@ -87,7 +96,7 @@ public class PriceController {
             return ResponseEntity.ok().headers(headers).body(fileInputStream);
         } catch (EntityNotFoundException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
         }
     }
 }
