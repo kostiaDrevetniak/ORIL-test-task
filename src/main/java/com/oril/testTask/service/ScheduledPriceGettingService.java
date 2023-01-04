@@ -31,7 +31,7 @@ public class ScheduledPriceGettingService {
     @Async
     @EventListener(ApplicationReadyEvent.class)
     @Scheduled(fixedDelay = 5000, initialDelay = 1000)
-    public void getPrice() throws IOException {
+    public void getPrice() {
         currencyRepository.findAll().forEach(currency -> {
             String jsonString;
             try {
