@@ -77,7 +77,7 @@ public class PriceController {
         List<Price> prices;
         try {
             prices = priceService.getPrices(currency, page, size);
-        } catch (EntityNotFoundException e) {
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(e.getLocalizedMessage());
         }

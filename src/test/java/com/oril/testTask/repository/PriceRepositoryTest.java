@@ -29,8 +29,8 @@ public class PriceRepositoryTest {
 
     @BeforeEach
     public void setup() {
-        Price minPrice = new Price("1", 0, currency);
-        Price maxPrice = new Price("2", 9999999.0, currency);
+        Price minPrice = new Price("1", 0.0, currency);
+        Price maxPrice = new Price("2", 999999999.0, currency);
         priceList = List.of(minPrice, maxPrice);
         priceRepository.insert(priceList);
     }
