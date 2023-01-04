@@ -39,9 +39,9 @@ public class PriceCSVService {
         ) {
             for (Currency currency : allCurrencies) {
                 Price min = priceRepository.findFirstByCurrencyOrderByPriceAsc(currency)
-                        .orElseThrow(() -> new EntityNotFoundException("Not found any prices for this currency"));
+                        .orElseThrow(() -> new EntityNotFoundException("Not found price for this currency"));
                 Price max = priceRepository.findFirstByCurrencyOrderByPriceDesc(currency)
-                        .orElseThrow(() -> new EntityNotFoundException("Not found any prices for this currency"));
+                        .orElseThrow(() -> new EntityNotFoundException("Not found price for this currency"));
                 csvPrinter.printRecord(currency.getName(), min.getPrice(), max.getPrice());
             }
             csvPrinter.flush();

@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 public class CurrencyMapperTest {
-    private static final String EXISTED_CURRENCY_NAME = "Currency";
+    private static final String EXISTED_CURRENCY_NAME = "Existed currency";
     private static final String NOT_EXISTED_CURRENCY_NAME = "Not existed";
     private static final Currency EXISTED_CURRENCY = new Currency("1", EXISTED_CURRENCY_NAME);
     private static final CurrencyDTO EXISTED_CURRENCY_DTO = new CurrencyDTO(EXISTED_CURRENCY_NAME);
